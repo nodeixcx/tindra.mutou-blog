@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Post | tindra.mutou's blog</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="site-title">tindra.mutou's blog</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="posts.html">Posts</a>
+    <a href="search.html">Search</a>
+    <a href="archive.html">Archive</a>
+    <a href="friends.html">Friends</a>
+    <button id="themeBtn">Toggle Dark</button>
+  </nav>
+</header>
+<main>
+<div class="card">
+  <div id="post-container">
+    <p>Loading...</p>
+  </div>
+</div>
+</main>
+<footer>© 2026 tindra.mutou's blog</footer>
+<script src="common.js" type="module"></script>
+<script type="module">
+(async ()=>{
+  // get id from url query
+  const params = new URLSearchParams(location.search);
+  const postId = params.get('id');
+  const container = document.querySelector('#post-container');
+
+  if(!postId){
+    container.innerHTML = `<h2>Not Found</h2><p>Missing post id.</p>`;
+    return;
+  }
+
+  const article = await fetchArticleById(postId);
+  if(!article){
+    container.innerHTML = `<h2>Not Found</h2><p>This post does not exist.</p>`;
+    return;
+  }
+
+  // build html
+  container.innerHTML = `
+    <h2>${article.title}</h2>
+    <div style="margin:8px 0;">
+      ${article.date} · ${article.category || "Uncategorized"}
+    </div>
+    <div class="tags" style="margin:12px 0;">
+      ${(article.tags || []).map(tag=>`<span><a href="posts.html?tag=${tag}">${tag}</a></span>`).join('')}
+    </div>
+    <hr style="margin:20px 0;border-color:var(--border)">
+    <div class="post-content">
+      ${article.content}
+    </div>
+    <div style="margin-top:30px;">
+      <a href="posts.html">← Back to Posts</a>
+    </div>
+  `
+})()
+</script>
+</body>
+</html>
