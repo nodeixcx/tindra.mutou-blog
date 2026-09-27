@@ -102,7 +102,11 @@ window.searchArticles = function(keyword){
 
 // ===================== Music 听歌模块：跳转QQ音乐 =====================
 window.playMusic = function(songId){
-  window.open(`https://y.qq.com/n/ryqq/songDetail/${songId}`, '_blank')
+  if(/^\d+$/.test(songId)){
+    window.open(`https://music.163.com/#/song?id=${songId}`, '_blank');
+  }else{
+    window.open(`https://y.qq.com/n/ryqq/songDetail/${songId}`, '_blank');
+  }
 }
 
 // ===================== 工具：格式化日期 =====================
