@@ -108,3 +108,31 @@ div.categories a:hover,
 div.tags a:hover {
   background-color: #5c4b7a;
   color: #ffffff !important;
+
+/* Friend Links 灰紫卡片风格 */
+.friend-links,
+div.friends a,
+section.friends a {
+  text-decoration: none !important;
+  color: #f0e7ff !important;
+}
+
+.friend-links a,
+div.friends a,
+section.friends a {
+  background-color: #443b58;
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin: 8px 0;
+  display: block;
+  transition: 0.2s ease;
+  line-height: 1.5;
+}
+
+.friend-links a:hover,
+div.friends a:hover,
+section.friends a:hover {
+  background-color: #5c4b7a;
+  color: #ffffff !important;
+  transform: translateY(-1px);
+}
