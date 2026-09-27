@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Search | tindra.mutou's blog</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="site-title">tindra.mutou's blog</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="posts.html">Posts</a>
+    <a href="search.html">Search</a>
+    <a href="archive.html">Archive</a>
+    <a href="friends.html">Friends</a>
+    <button id="themeBtn">Toggle Dark</button>
+  </nav>
+</header>
+<main>
+<div class="card">
+  <h2>Site Search</h2>
+  <input id="kw" placeholder="Search title or excerpt">
+  <button onclick="doSearch()">Search</button>
+  <div id="search-res"></div>
+</div>
+</main>
+<footer>© 2026 tindra.mutou's blog</footer>
+<script src="common.js" type="module"></script>
+<script>
+function doSearch(){
+  const kw = document.getElementById('kw').value.trim().toLowerCase();
+  const resDom = document.querySelector('#search-res');
+  if(!kw){resDom.innerHTML="";return;}
+  const result = articleData.filter(x=>
+    x.title.toLowerCase().includes(kw) || x.excerpt.toLowerCase().includes(kw)
+  )
+  if(!result.length){
+    resDom.innerHTML="<p>No results found.</p>";
+    return;
+  }
+  resDom.innerHTML = result.map(a=>`
+  <div class="card">
+    <a href="post.html?id=${a.id}"><h4>${a.title}</h4></a>
+    <div>${a.date}</div>
+    <p>${a.excerpt}</p>
+  </div>`).join('')
+}
+</script>
+</body>
+</html>
