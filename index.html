@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tindra.mutou's blog</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="site-title">tindra.mutou's blog</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="posts.html">Posts</a>
+    <a href="search.html">Search</a>
+    <a href="archive.html">Archive</a>
+    <a href="friends.html">Friends</a>
+    <button id="themeBtn">Toggle Dark</button>
+  </nav>
+</header>
+<main>
+  <div class="card">
+    <h2>Welcome</h2>
+    <p>Personal blog & diary space.</p>
+  </div>
+
+  <div class="music-box">
+    <h3>🎵 Music</h3>
+    <p>Click to open song on QQ Music</p>
+    <button onclick="playMusic('000Yj3n32zZ0D0')">Sample Song</button>
+  </div>
+
+  <h3>Latest Posts</h3>
+  <div id="home-list"></div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;">
+    <div class="card">
+      <h4>Categories</h4>
+      <div id="cate-box"></div>
+    </div>
+    <div class="card">
+      <h4>Tags</h4>
+      <div id="tag-box" class="tags"></div>
+    </div>
+  </div>
+</main>
+<footer>© 2026 tindra.mutou's blog</footer>
+<script src="common.js"></script>
+<script>
+// Render latest 5 posts
+const listEl = document.querySelector('#home-list');
+articleData.slice(0,5).forEach(a=>{
+  listEl.innerHTML += `
+  <div class="card">
+    <a href="post.html?id=${a.id}"><h4>${a.title}</h4></a>
+    <div>${a.date}｜${a.category}</div>
+    <p>${a.excerpt}</p>
+  </div>`
+})
+
+// Render categories
+const cates = [...new Set(articleData.map(x=>x.category))];
+document.querySelector('#cate-box').innerHTML = cates.map(c=>
+  `<div class="cate-item"><a href="posts.html?cate=${c}">${c}</a></div>`
+).join('')
+
+// Render tags
+const tagsAll = [...new Set(articleData.flatMap(x=>x.tags))];
+document.querySelector('#tag-box').innerHTML = tagsAll.map(t=>
+  `<span><a href="posts.html?tag=${t}">${t}</a></span>`
+).join('')
+</script>
+</body>
+</html>
