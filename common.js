@@ -169,7 +169,45 @@ window.fetchArticleById = fetchArticleById;
 
 //首页列表
 async function loadLatestPosts(){
-  //......上面一大段代码......
+  const container = document.querySelector("#home-list");
+  if(!container){
+    console.warn("找不到 #home-list 容器");
+    return;
+  }
+
+  const {data, error} = await supabase
+    .from("articles")
+    .select("*")
+    .order("date", {ascending:false});
+
+  if(error){
+    console.error("读取文章错误",error);
+    container.innerHTML = `<p>加载文章失败</p>`;
+    return;
+  }
+
+  if(data.length === 0){
+    container.innerHTML = `<p>暂无文章</p>`;
+    return;
+  }
+
+  let html = "";
+  for(const post of data){
+    html += `
+    <div class="post-card card" onclick="location.href='post.html?id=${post.id}'">
+      <h3>${post.title}</h3>
+      <div class="post-date">${post.date} · ${post.category || "Uncategorized"}</div>
+      <p>${post.excerpt}</p>
+    </div>
+    `
+  }
+  container.innerHTML = html;
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", loadLatestPosts);
+} else {
+  loadLatestPosts();
 }
 
 if (document.readyState === "loading") {
