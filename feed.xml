@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+  <title>tindra.mutou's blog</title>
+  <link>https://nodeixcx.github.io/tindra.mutou-s-blog/</link>
+  <description>Personal blog & diary space. I'm a little girl with a bit of social anxiety. Like painting, writing, making songs.</description>
+  <language>en</language>
+  <atom:link href="https://nodeixcx.github.io/tindra.mutou-s-blog/feed.xml" rel="self" type="application/rss+xml"/>
+
+  <item>
+    <title>Youth Is a Quiet Unfolding</title>
+    <link>https://nodeixcx.github.io/tindra.mutou-s-blog/post.html</link>
+    <pubDate>Wed, 24 Sep 2026 10:00:00 GMT</pubDate>
+    <description>Write your post summary here.</description>
+  </item>
+
+</channel>
+</rss>
