@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archive | tindra.mutou's blog</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="site-title">tindra.mutou's blog</div>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="posts.html">Posts</a>
+    <a href="search.html">Search</a>
+    <a href="archive.html">Archive</a>
+    <a href="friends.html">Friends</a>
+    <button id="themeBtn">Toggle Dark</button>
+  </nav>
+</header>
+<main>
+<div class="card">
+  <h2>Post Archive</h2>
+  <div id="arch-box"></div>
+</div>
+</main>
+<footer>© 2026 tindra.mutou's blog</footer>
+<script src="common.js" type="module"></script>
+<script>
+// Group posts by year-month
+const group = {};
+articleData.forEach(a=>{
+  const ym = a.date.slice(0,7);
+  if(!group[ym]) group[ym]=[];
+  group[ym].push(a);
+})
+let html = "";
+Object.keys(group).sort().reverse().forEach(ym=>{
+  html += `<h4>${ym}</h4>`
+  group[ym].forEach(art=>{
+    html += `<div class="arch-item">· <a href="post.html?id=${art.id}">${art.title}</a> ${art.date}</div>`
+  })
+})
+document.querySelector('#arch-box').innerHTML = html;
+</script>
+</body>
+</html>
