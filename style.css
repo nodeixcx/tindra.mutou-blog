@@ -90,3 +90,22 @@ input{
   border-radius:8px;
   margin:10px 0;
 }
+
+/* 分类 & 标签 灰紫风格 */
+.categories a,
+.tags a {
+  text-decoration: none;
+  color: #f0e7ff;
+  background-color: #443b58;
+  padding: 6px 12px;
+  border-radius: 8px;
+  margin: 4px 6px 4px 0;
+  display: inline-block;
+  transition: 0.2s ease;
+}
+
+.categories a:hover,
+.tags a:hover {
+  background-color: #5c4b7a;
+  color: #ffffff;
+}
