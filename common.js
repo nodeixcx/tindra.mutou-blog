@@ -166,3 +166,32 @@ async function fetchArticleById(id){
   return data;
 }
 window.fetchArticleById = fetchArticleById;
+
+//首页列表
+async function loadLatestPosts(){
+  //......上面一大段代码......
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", loadLatestPosts);
+} else {
+  loadLatestPosts();
+}
+
+//获取单篇文章（post.html调用）
+async function fetchArticleById(id){
+  const { data, error } = await supabase
+    .from('articles')
+    .select('*')
+    .eq('id', id)
+    .single();
+  if(error){
+    console.error("获取单篇文章失败", error);
+    return null;
+  }
+  return data;
+}
+
+//全部对外暴露
+window.supabase = supabase;
+window.fetchArticleById = fetchArticleById;
