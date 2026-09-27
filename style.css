@@ -160,18 +160,3 @@ footer {
   text-align: center;
   }
 
-nav a[href="feed.xml"] {
-  text-decoration: none !important;
-  color: #f0e7ff !important;
-  background-color: #443b58;
-  padding: 6px 12px;
-  border-radius: 8px;
-  margin: 4px 6px 4px 0;
-  display: inline-block;
-  transition: 0.2s ease;
-}
-
-nav a[href="feed.xml"]:hover {
-  background-color: #5c4b7a;
-  color: #ffffff !important;
-}
