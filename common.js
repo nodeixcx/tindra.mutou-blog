@@ -111,3 +111,40 @@ window.formatDate = function(datestr){
   if(!datestr) return '';
   return new Date(datestr).toLocaleDateString('en‑US');
 }
+
+// 加载并渲染最新文章
+async function loadLatestPosts(){
+  const container = document.querySelector(".latest-posts-container");
+  if(!container) return;
+
+  const {data, error} = await supabase
+    .from("articles")
+    .select("*")
+    .order("date", {ascending:false});
+
+  if(error){
+    console.error("读取文章错误",error);
+    container.innerHTML = `<p>加载文章失败</p>`;
+    return;
+  }
+
+  if(data.length === 0){
+    container.innerHTML = `<p>暂无文章</p>`;
+    return;
+  }
+
+  let html = "";
+  for(const post of data){
+    html += `
+    <div class="post‑card">
+      <h3>${post.title}</h3>
+      <div class="post‑date">${post.date}</div>
+      <p>${post.excerpt}</p>
+    </div>
+    `
+  }
+  container.innerHTML = html;
+}
+
+// DOM加载完成执行
+document.addEventListener("DOMContentLoaded", loadLatestPosts);
