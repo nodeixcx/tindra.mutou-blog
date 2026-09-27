@@ -137,3 +137,17 @@ div.tags a:hover {
 .dark .friend-item:hover{
   box-shadow: 0 4px 14px rgba(99,155,255,0.12);
 }
+
+.site-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.site-avatar {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #443b58;
+}
