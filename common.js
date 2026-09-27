@@ -112,10 +112,12 @@ window.formatDate = function(datestr){
   return new Date(datestr).toLocaleDateString('en‑US');
 }
 
-// 加载并渲染最新文章
 async function loadLatestPosts(){
-  const container = document.querySelector(".latest-posts-container");
-  if(!container) return;
+  const container = document.querySelector("#home-list");
+  if(!container){
+    console.warn("找不到 #home-list 容器");
+    return;
+  }
 
   const {data, error} = await supabase
     .from("articles")
@@ -136,9 +138,9 @@ async function loadLatestPosts(){
   let html = "";
   for(const post of data){
     html += `
-    <div class="post‑card">
+    <div class="post-card card">
       <h3>${post.title}</h3>
-      <div class="post‑date">${post.date}</div>
+      <div class="post-date">${post.date}</div>
       <p>${post.excerpt}</p>
     </div>
     `
@@ -146,5 +148,5 @@ async function loadLatestPosts(){
   container.innerHTML = html;
 }
 
-// DOM加载完成执行
 document.addEventListener("DOMContentLoaded", loadLatestPosts);
+window.supabase = supabase;
