@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh‑CN">
+<head>
+<meta charset="UTF‑8" />
+<meta name="viewport" content="width=device‑width, initial‑scale=1.0" />
+<title>文章详情 | My blog</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase‑js@2"></script>
+<script>
+tailwind.config = {
+  theme:{
+    extend:{
+      colors:{
+        aoba:"#3A647C",
+        wakaba:"#87B899"
+      }
+    }
+  }
+}
+</script>
+<style>
+*{‑webkit‑tap‑highlight‑color:transparent;}
+html{scroll‑behavior:smooth;}
+body{
+  background‑color:#f4f8f7;
+  background‑image:
+    radial‑gradient(circle at 10% 0%, rgba(135,184,153,0.22), transparent 55%),
+    radial‑gradient(circle at 90% 20%, rgba(58,100,124,0.12), transparent 65%);
+}
+.card‑item{
+  border:1px solid rgba(58,100,124,0.11);
+  background:rgba(255,255,255,0.74);
+  border‑radius:16px;
+}
+</style>
+</head>
+<body class="text‑[#243640]">
+<div class="max‑w‑6xl mx‑auto px‑6 pt‑8 pb‑4">
+  <a href="index.html" class="text‑aoba">← 返回首页</a>
+</div>
+
+<main class="max‑w‑4xl mx‑auto px‑6 pt‑8 pb‑28">
+  <div class="card‑item p‑8" id="articleWrap">
+    <div class="h‑6 w‑1/2 bg‑aoba/10 rounded"></div>
+  </div>
+</main>
+
+<script src="./common.js"></script>
+<script>
+// 获取url ?id=xxx
+const params = new URLSearchParams(location.search);
+const aid = params.get("id");
+
+async function renderArticle(){
+  const wrap = document.querySelector("#articleWrap");
+  if(!aid){
+    wrap.innerHTML = `<p class="opacity‑70">缺少文章ID</p><a href="index.html" class="text‑aoba mt‑4 inline‑block">返回列表</a>`;
+    return;
+  }
+  const {data,error} = await supabase
+    .from("articles")
+    .select("title,content,created_at")
+    .eq("id",aid)
+    .single();
+
+  if(error||!data){
+    wrap.innerHTML = `<p class="opacity‑70">文章不存在</p><a href="index.html" class="text‑aoba mt‑4 inline‑block">返回列表</a>`;
+    return;
+  }
+  const date = new Date(data.created_at).toLocaleDateString("zh‑CN");
+  wrap.innerHTML = `
+    <h1 class="text‑3xl font‑serif text‑aoba">${escapeHtml(data.title)}</h1>
+    <div class="mt‑2 text‑xs opacity‑60">${date}</div>
+    <div class="mt‑8 leading‑relaxed whitespace‑pre‑wrap">${escapeHtml(data.content)}</div>
+    <div class="mt‑10 pt‑6 border‑t border‑aoba/10">
+      <a href="index.html#articles" class="text‑aoba">← 返回文章列表</a>
+    </div>
+  `;
+}
+renderArticle();
+</script>
+</body>
+</html>
