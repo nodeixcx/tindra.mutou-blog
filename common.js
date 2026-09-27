@@ -150,3 +150,19 @@ async function loadLatestPosts(){
 
 document.addEventListener("DOMContentLoaded", loadLatestPosts);
 window.supabase = supabase;
+
+// 根据id获取单篇文章，给post.html调用
+async function fetchArticleById(id){
+  const { data, error } = await supabase
+    .from('articles')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if(error){
+    console.error("获取单篇文章失败", error);
+    return null;
+  }
+  return data;
+}
+window.fetchArticleById = fetchArticleById;
